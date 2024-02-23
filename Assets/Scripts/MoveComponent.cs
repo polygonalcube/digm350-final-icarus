@@ -10,7 +10,7 @@ public class MoveComponent : MonoBehaviour
     public float jumpHgt;
 	public Vector2 maxSpeed;
 
-    Vector2 speed;
+    public Vector2 speed;
 
     // A version of Mathf.Sign() that can return 0;
     int Sign(float num)
@@ -39,13 +39,15 @@ public class MoveComponent : MonoBehaviour
     {
         // acceleration & deceleration
 		speed.x = (Mathf.Abs(moveDir.x) != 0f) ? Accelerate(speed.x, moveDir.x) : Decelerate(speed.x);
-        speed.y = (Mathf.Abs(moveDir.y) != 0f) ? Accelerate(speed.y, moveDir.y) : Decelerate(speed.y);
-
         if (gravity != 0f)
         {
             speed.y += gravity * Time.deltaTime;
         }
-        if (moveDir.y >= 1f && gravity != 0f) speed.y = Mathf.Abs(Mathf.Sqrt(jumpHgt * -2f * gravity));
+        else
+        {
+            speed.y = (Mathf.Abs(moveDir.y) != 0f) ? Accelerate(speed.y, moveDir.y) : Decelerate(speed.y);
+        }
+        if (moveDir.y >= 1f && gravity != 0f && jumpHgt != 0f) speed.y = Mathf.Abs(Mathf.Sqrt(jumpHgt * -2f * gravity));
 
         speed.x = Cap(speed.x, maxSpeed.x, moveDir.x);
         if (gravity != 0f)
