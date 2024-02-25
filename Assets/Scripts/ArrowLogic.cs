@@ -10,26 +10,14 @@ public class ArrowLogic : MonoBehaviour
 
     void Start()
     {
-        Vector2 movResult = mover.Move(dir);
-        transform.position += new Vector3(movResult.x, movResult.y, 0f);
+        transform.position += (Vector3)mover.Move(dir);
         dir = new Vector2(dir.x, 0f);
     }
 
     void Update()
     {
         Vector2 movResult = mover.Move(dir);
-        transform.position += new Vector3(movResult.x, movResult.y, 0f);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Vector2.Angle(movResult));
+        transform.position += (Vector3)movResult;
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Atan(movResult.y/movResult.x) * Mathf.Rad2Deg);
     }
-
-    /*Survey
-    On a scale of 1 (worst) to 7 (best), how fun would you say the game was?
-    - 1  - 2  - 3  - 4  - 5  - 6  - 7
-    Did the game feel like the story of Icarus?
-    - Yes  - No
-    Did you reach the end island?
-    - Yes  - No  - Wait, there's an island?!
-    If played, which Icarus game was cooler?
-    - Ours  - Theirs
-    */
 }

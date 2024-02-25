@@ -47,7 +47,7 @@ public class MoveComponent : MonoBehaviour
         {
             speed.y = (Mathf.Abs(moveDir.y) != 0f) ? Accelerate(speed.y, moveDir.y) : Decelerate(speed.y);
         }
-        if (moveDir.y >= 1f && gravity != 0f && jumpHgt != 0f) speed.y = Mathf.Abs(Mathf.Sqrt(jumpHgt * -2f * gravity));
+        if (moveDir.y >= 0.5f && gravity != 0f && jumpHgt != 0f) speed.y = Mathf.Abs(Mathf.Sqrt(jumpHgt * -2f * gravity));
 
         speed.x = Cap(speed.x, maxSpeed.x, moveDir.x);
         if (gravity != 0f)

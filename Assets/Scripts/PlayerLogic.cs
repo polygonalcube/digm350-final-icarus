@@ -5,24 +5,11 @@ using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
-    //public InputAction flapping;
-    public float movVal;
-    public bool flapped = false;
-    public float defense;
-
     public HPComponent hp;
     public MoveComponent mover;
-    /*
-    void OnEnable()
-    {
-        flapping.Enable();
-    }
 
-    void OnDisable()
-    {
-        flapping.Disable();
-    }
-    */
+    public float movVal;
+    
     void Update()
     {
         Movement();
