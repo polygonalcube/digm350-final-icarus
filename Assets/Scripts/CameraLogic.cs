@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraLogic : MonoBehaviour
@@ -8,6 +8,9 @@ public class CameraLogic : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.right * scrollSpd * Time.deltaTime;
+        if (GameManager.gm.gameState == GameManager.GameState.Game)
+        {
+            transform.position += Vector3.right * scrollSpd * Time.deltaTime;
+        }
     }
 }
