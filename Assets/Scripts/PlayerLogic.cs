@@ -16,6 +16,8 @@ public class PlayerLogic : MonoBehaviour
     Vector3 globalStart;
     Vector3 localStart;
 
+    public bool hasWon = false;
+
     void Start()
     {
         globalStart = transform.position;
@@ -43,6 +45,10 @@ public class PlayerLogic : MonoBehaviour
         else if (GameManager.gm.gameState == GameManager.GameState.Death)
         {
             Die();
+        }
+        else if (GameManager.gm.gameState == GameManager.GameState.Win)
+        {
+            hp.health = hp.maxHealth;
         }
     }
 
@@ -81,5 +87,15 @@ public class PlayerLogic : MonoBehaviour
         Vector2 movResult = moverDeath.Move(Vector2.up * movValDeath);
         transform.position += (Vector3)movResult;
         movValDeath = 0f;
+    }
+
+    //Needs a trigger collider to be present on the game object.
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Win")
+        {
+            GameManager.gm.gameState = GameManager.GameState.Win;
+            hasWon = true;
+        }
     }
 }

@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
         Title,
         Await,
         Game,
-        Death
+        Death,
+        Win
     }
     public GameState gameState = GameState.Title;
 

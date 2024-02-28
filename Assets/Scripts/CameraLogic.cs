@@ -13,7 +13,7 @@ public class CameraLogic : MonoBehaviour
     void Start()
     {
         island = GameObject.Find("Island").transform;
-        if (island != null) island.position = new Vector3(scrollSpd * secondsToWin, 0f, 0f);
+        if (island != null) island.position = new Vector3(scrollSpd * secondsToWin, island.position.y, 0f);
     }
 
     void Update()

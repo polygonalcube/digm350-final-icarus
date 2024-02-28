@@ -26,6 +26,13 @@ public class UI : MonoBehaviour
         }
         else if ((GameManager.gm.gameState == GameManager.GameState.Game) && (GameManager.gm.FindPlayerScript().hp.health <= 0))
             GameManager.gm.gameState++;
+        else if (GameManager.gm.FindPlayerScript().hasWon)
+        {
+            StopCoroutine(Menu());
+            StartCoroutine(Win());
+            GameManager.gm.FindPlayerScript().hasWon = false;
+        }
+            
         if (Input.GetKey("escape")) Application.Quit();
     }
 
@@ -45,5 +52,12 @@ public class UI : MonoBehaviour
             menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, -1000f), 0.5f, false).From();
             menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, 0f), 1f, false);
         }
+    }
+
+    IEnumerator Win()
+    {
+        menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, 5625f), 0.5f, false).From();
+        menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, 6000f), 0.5f, false);
+        yield return new WaitUntil(() => GameManager.gm.gameState == GameManager.GameState.Title);
     }
 }
