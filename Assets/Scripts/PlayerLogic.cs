@@ -10,15 +10,37 @@ public class PlayerLogic : MonoBehaviour
 
     public float movVal;
     public float movValDeath = 1f;
+
+    bool firstJump = true;
+
+    Vector3 globalStart;
+    Vector3 localStart;
+
+    void Start()
+    {
+        globalStart = transform.position;
+        localStart = transform.localPosition;
+    }
     
     void Update()
     {
-        if (GameManager.gm.gameState == GameManager.GameState.Game)
+        if (GameManager.gm.gameState == GameManager.GameState.Title)
+        {
+            transform.position = globalStart;
+            hp.health = hp.maxHealth;
+        }
+        else if (GameManager.gm.gameState == GameManager.GameState.Await)
+        {
+            transform.localPosition = localStart;
+            mover.speed = Vector2.zero;
+            firstJump = true;
+        }
+        else if (GameManager.gm.gameState == GameManager.GameState.Game)
         {
             movValDeath = 1f;
             Movement();
         }
-        if (GameManager.gm.gameState == GameManager.GameState.Death)
+        else if (GameManager.gm.gameState == GameManager.GameState.Death)
         {
             Die();
         }
@@ -34,7 +56,12 @@ public class PlayerLogic : MonoBehaviour
 
     void Movement()
     {
-        movVal = (Input.GetButtonDown("Jump")) ? 1f : 0f;
+        if (firstJump)
+        {
+            movVal = 1f;
+            firstJump = false;
+        }
+        else movVal = (Input.GetButtonDown("Jump")) ? 1f : 0f;
         Vector2 movResult = mover.Move(Vector2.up * movVal);
         transform.position += (Vector3)movResult;
     }

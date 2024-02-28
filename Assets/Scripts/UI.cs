@@ -15,11 +15,18 @@ public class UI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && GameManager.gm.gameState != GameManager.GameState.Game)
+        if (Input.GetButtonDown("Jump"))
         {
-            if (GameManager.gm.gameState != GameManager.GameState.Death) GameManager.gm.gameState++;
-            else GameManager.gm.gameState = GameManager.GameState.Title;
+            if ((GameManager.gm.gameState == GameManager.GameState.Title) && (menu.GetComponent<RectTransform>().anchoredPosition.y == 0f))
+                GameManager.gm.gameState++;
+            else if (GameManager.gm.gameState == GameManager.GameState.Await)
+                GameManager.gm.gameState++;
+            else if ((GameManager.gm.gameState == GameManager.GameState.Death) && (GameManager.gm.FindPlayer().transform.position.y <= -5.5f))
+                GameManager.gm.gameState = GameManager.GameState.Title;
         }
+        else if ((GameManager.gm.gameState == GameManager.GameState.Game) && (GameManager.gm.FindPlayerScript().hp.health <= 0))
+            GameManager.gm.gameState++;
+        if (Input.GetKey("escape")) Application.Quit();
     }
 
     IEnumerator Menu()

@@ -46,7 +46,7 @@ public class HurtComponent : MonoBehaviour
         sprRen.SetActive(true);
     }
 
-    bool CheckTags(Collider col)
+    bool CheckTags(Collider2D col)
     {
         foreach (string tag in tags)
         {
@@ -59,7 +59,7 @@ public class HurtComponent : MonoBehaviour
     }
     
     //Needs a trigger collider to be present on the game object.
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if ((hp != null) && CheckTags(col))
         {
@@ -69,7 +69,7 @@ public class HurtComponent : MonoBehaviour
                 iFramesLeft = hitbox.iFrames;
             }
 
-            if (sprRen != null) sprRen.SetActive(false);
+            //if (sprRen != null) sprRen.SetActive(false);
         }
     }
 }
