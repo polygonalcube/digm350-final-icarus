@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 113232588}
+  - component: {fileID: 113232589}
   - component: {fileID: 113232587}
   m_Layer: 0
   m_Name: Water
@@ -200,6 +201,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &113232589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113232586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039f7971922aae46f8ca3349b39ab5b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 99999
+  iFrames: 0
 --- !u!1 &126688818
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,6 +688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3000
   maxHealth: 3000
+  immediateDeath: 1
 --- !u!114 &435356641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,7 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6dd582370ccb056897f2b1bb41a256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpd: 2
+  scrollSpd: 3
 --- !u!1 &625309783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1943,7 +1959,7 @@ MonoBehaviour:
   decel: 0
   gravity: -30
   jumpHgt: 2
-  maxSpeed: {x: 5, y: 99}
+  maxSpeed: {x: 6, y: 99}
   speed: {x: 0, y: 0}
 --- !u!114 &1628766381
 MonoBehaviour:
@@ -2074,6 +2090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+  arrowSpawner: {fileID: 0}
   cloudSpawner: {fileID: 1955072373}
 --- !u!4 &1955072372
 Transform:
