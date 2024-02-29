@@ -2,19 +2,25 @@ using DG.Tweening;
 using System.Collections;
 //using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
     GameObject menu;
+    Slider candle;
 
     void Start()
     {
+        candle = GameObject.Find("Candle").GetComponent<Slider>();
+        candle.maxValue = GameManager.gm.FindPlayerScript().hp.maxHealth;
         menu = GameObject.Find("Menu");
         StartCoroutine(Menu());
     }
 
     void Update()
     {
+        candle.value = GameManager.gm.FindPlayerScript().hp.health;
+        
         if (Input.GetButtonDown("Jump"))
         {
             if ((GameManager.gm.gameState == GameManager.GameState.Title) && (menu.GetComponent<RectTransform>().anchoredPosition.y == 0f))
@@ -47,6 +53,7 @@ public class UI : MonoBehaviour
             yield return new WaitUntil(() => GameManager.gm.gameState == GameManager.GameState.Death);
             menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, 4500f), 0.5f, false);
             yield return new WaitUntil(() => GameManager.gm.gameState == GameManager.GameState.Title);
+            GameManager.gm.RandomizeClouds();
             menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, 5250f), 0.5f, false);
             yield return new WaitUntil(() => menu.GetComponent<RectTransform>().anchoredPosition.y > 5249f);
             menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, -1000f), 0.5f, false).From();

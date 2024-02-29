@@ -6,14 +6,45 @@ public class DaedalusLogic : MonoBehaviour
 {
     public MoveComponent mover;
     public float movVal;
+
+    Vector3 globalStart;
+    Vector3 localStart;
+
+    void Start()
+    {
+        globalStart = transform.position;
+        localStart = transform.localPosition;
+    }
     
     void Update()
     {
-        if (GameManager.gm.gameState != GameManager.GameState.Title)
+        /*if (GameManager.gm.gameState != GameManager.GameState.Title)
         {
             Movement();
         }
-        else movVal = 1f;
+        else movVal = 1f;*/
+        if (GameManager.gm.gameState == GameManager.GameState.Title)
+        {
+            transform.position = globalStart;
+            mover.speed = Vector2.zero;
+            movVal = 1f;
+        }
+        else if (GameManager.gm.gameState == GameManager.GameState.Await)
+        {
+            Movement();
+        }
+        else if (GameManager.gm.gameState == GameManager.GameState.Game)
+        {
+            Movement();
+        }
+        else if (GameManager.gm.gameState == GameManager.GameState.Death)
+        {
+            Movement();
+        }
+        else if (GameManager.gm.gameState == GameManager.GameState.Win)
+        {
+            
+        }
     }
 
     void Movement()

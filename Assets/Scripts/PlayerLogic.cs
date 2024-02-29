@@ -17,11 +17,14 @@ public class PlayerLogic : MonoBehaviour
     Vector3 localStart;
 
     public bool hasWon = false;
+    public float jumpDiv = 0f;
 
     void Start()
     {
         globalStart = transform.position;
         localStart = transform.localPosition;
+
+        jumpDiv = hp.maxHealth / 2f;
     }
     
     void Update()
@@ -68,6 +71,7 @@ public class PlayerLogic : MonoBehaviour
             firstJump = false;
         }
         else movVal = (Input.GetButtonDown("Jump")) ? 1f : 0f;
+        mover.jumpHgt = hp.health / jumpDiv;
         Vector2 movResult = mover.Move(Vector2.up * movVal);
         transform.position += (Vector3)movResult;
     }

@@ -94,8 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1882421259735716890}
   - component: {fileID: 999003563637311356}
+  - component: {fileID: 3323503339096201719}
   - component: {fileID: 6677381219769142620}
-  - component: {fileID: 3958177899625966610}
+  - component: {fileID: 5132065465158337550}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Damage
@@ -112,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 2171712964963867159}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.45, y: -5.16, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -134,6 +135,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 6677381219769142620}
   dir: {x: -1, y: 1}
+--- !u!114 &3323503339096201719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171712964963867159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039f7971922aae46f8ca3349b39ab5b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 200
+  iFrames: 15
 --- !u!114 &6677381219769142620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,8 +167,8 @@ MonoBehaviour:
   jumpHgt: 4
   maxSpeed: {x: 10, y: 99}
   speed: {x: 0, y: 0}
---- !u!61 &3958177899625966610
-BoxCollider2D:
+--- !u!70 &5132065465158337550
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -181,22 +196,12 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Size: {x: 1.11, y: 0.36}
+  m_Direction: 1
 --- !u!1 &8220256662856031668
 GameObject:
   m_ObjectHideFlags: 0
