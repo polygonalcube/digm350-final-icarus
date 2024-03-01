@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public SpawningComponent cloudSpawner;
     GameObject[] clouds = new GameObject[300];
 
-    Transform camera;
+    Transform cam;
     
     void Awake() // Allows for Singleton.
     {
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         }
         clouds[0].transform.position = new Vector3(clouds[0].transform.position.x, 4.5f, 0f);
 
-        camera = GameObject.Find("Main Camera").transform;
+        cam = GameObject.Find("Main Camera").transform;
 
         arrowDelays = new float[arrowSpawners.Length];
         origDelays = new float[arrowSpawners.Length];
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
                 arrowDelays[i] -= Time.deltaTime;
                 if (arrowDelays[i] <= 0f)
                 {
-                    GameObject newArrow = arrowSpawners[i].Spawn(new Vector3(Random.Range(1.5f, 9.5f) + camera.position.x, -5.5f, 0f));
+                    GameObject newArrow = arrowSpawners[i].Spawn(new Vector3(Random.Range(1.5f, 9.5f) + cam.position.x, -5.5f, 0f));
                     newArrow.GetComponent<ArrowLogic>().mover.jumpHgt = Random.Range(1f, 6f);
                     arrowDelaySets[i] -= delayDecs[i];
                     if (arrowDelaySets[i] < arrowDelayMins[i]) arrowDelaySets[i] = arrowDelayMins[i];

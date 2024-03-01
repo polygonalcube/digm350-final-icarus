@@ -19,6 +19,9 @@ public class PlayerLogic : MonoBehaviour
     public bool hasWon = false;
     public float jumpDiv = 0f;
 
+    [SerializeField] SpriteRenderer sr;
+    [SerializeField] Sprite[] sprites;
+
     void Start()
     {
         globalStart = transform.position;
@@ -44,10 +47,12 @@ public class PlayerLogic : MonoBehaviour
         {
             movValDeath = 1f;
             Movement();
+            Animation();
         }
         else if (GameManager.gm.gameState == GameManager.GameState.Death)
         {
             Die();
+            sr.sprite = sprites[0];
         }
         else if (GameManager.gm.gameState == GameManager.GameState.Win)
         {
@@ -76,11 +81,20 @@ public class PlayerLogic : MonoBehaviour
         transform.position += (Vector3)movResult;
     }
 
+    void Animation()
+    {
+        sr.sprite = (mover.speed.y > 0f) ? sprites[1] : sprites[0];
+    }
+
     void SunDamage()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up, Vector2.up);
 
         if (hit.collider == null)
+        {
+            hp.health -= 1;
+        }
+        else if (hit.collider.gameObject.tag == "Kill")
         {
             hp.health -= 1;
         }

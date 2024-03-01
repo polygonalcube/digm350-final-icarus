@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 200
-  iFrames: 15
+  iFrames: 30
 --- !u!114 &6677381219769142620
 MonoBehaviour:
   m_ObjectHideFlags: 0
