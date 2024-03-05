@@ -8,12 +8,15 @@ public class UI : MonoBehaviour
 {
     GameObject menu;
     GameObject progress;
+    Slider progressBar;
     Slider candle;
     Image flash;
 
     float attemptTime;
 
     [SerializeField] string[] messages;
+
+    GameObject bar;
 
     void Start()
     {
@@ -27,13 +30,21 @@ public class UI : MonoBehaviour
         StartCoroutine(Menu());
 
         progress = GameObject.Find("Progress");
+
+        progressBar = GameObject.Find("Progress Bar").GetComponent<Slider>();
+        bar = GameObject.Find("Progress Bar");
     }
 
     void Update()
     {
         candle.value = GameManager.gm.FindPlayerScript().hp.health;
         flash.color -= new Color(0f, 0f, 0f, Time.deltaTime * 5f);
-        if (GameManager.gm.gameState == GameManager.GameState.Game) attemptTime += Time.deltaTime;
+        if (GameManager.gm.gameState == GameManager.GameState.Game)
+        {
+            attemptTime += Time.deltaTime;
+            progressBar.maxValue = GameObject.Find("Main Camera").GetComponent<CameraLogic>().secondsToWin;
+            progressBar.value = attemptTime;
+        } 
         
         if (Input.GetButtonDown("Jump"))
         {
@@ -55,6 +66,19 @@ public class UI : MonoBehaviour
         }
             
         if (Input.GetKey("escape")) Application.Quit();
+
+        if (GameManager.gm.isBuildA)
+        {
+            GameObject.Find("Candle").GetComponent<RectTransform>().anchoredPosition = new Vector2(60f, 250f);
+            progress.SetActive(true);
+            bar.SetActive(false);
+        }
+        else 
+        {
+            GameObject.Find("Candle").GetComponent<RectTransform>().anchoredPosition = new Vector2(1860f, 825f);
+            progress.SetActive(false);
+            bar.SetActive(true);
+        }
     }
 
     IEnumerator Menu()
@@ -73,6 +97,7 @@ public class UI : MonoBehaviour
             menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, 4500f), 0.5f, false);
             yield return new WaitUntil(() => GameManager.gm.gameState == GameManager.GameState.Title);
             GameManager.gm.RandomizeClouds();
+            progressBar.value = attemptTime;
             menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, 5250f), 0.5f, false);
             yield return new WaitUntil(() => menu.GetComponent<RectTransform>().anchoredPosition.y > 5249f);
             menu.GetComponent<RectTransform>().DOAnchorPos(new Vector3(0f, -1000f), 0.5f, false).From();
