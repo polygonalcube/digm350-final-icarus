@@ -1,5 +1,3 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
@@ -22,12 +20,16 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] SpriteRenderer sr;
     [SerializeField] Sprite[] sprites;
 
+    GameObject arrow;
+
     void Start()
     {
         globalStart = transform.position;
         localStart = transform.localPosition;
 
         jumpDiv = hp.maxHealth / 2f;
+
+        arrow = GameObject.Find("Arrow");
     }
     
     void Update()
@@ -48,6 +50,8 @@ public class PlayerLogic : MonoBehaviour
             movValDeath = 1f;
             Movement();
             Animation();
+
+            arrow.SetActive(false);
         }
         else if (GameManager.gm.gameState == GameManager.GameState.Death)
         {
@@ -110,7 +114,7 @@ public class PlayerLogic : MonoBehaviour
     //Needs a trigger collider to be present on the game object.
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Win")
+        if ((col.gameObject.tag == "Win") && (GameManager.gm.gameState == GameManager.GameState.Game) && (hp.health > 0))
         {
             GameManager.gm.gameState = GameManager.GameState.Win;
             hasWon = true;

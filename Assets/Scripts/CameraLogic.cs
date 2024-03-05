@@ -1,5 +1,4 @@
 using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraLogic : MonoBehaviour
@@ -7,7 +6,7 @@ public class CameraLogic : MonoBehaviour
     [SerializeField] float scrollSpd = 1f;
     Vector3 refVelocity = Vector3.zero;
 
-    [SerializeField] float secondsToWin = 300f;
+    public float secondsToWin = 300f;
     Transform island;
 
     void Start()

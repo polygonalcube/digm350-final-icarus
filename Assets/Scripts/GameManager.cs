@@ -1,5 +1,3 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -27,6 +25,8 @@ public class GameManager : MonoBehaviour
     GameObject[] clouds = new GameObject[300];
 
     Transform cam;
+
+    public bool isBuildA = true;
     
     void Awake() // Allows for Singleton.
     {
@@ -82,6 +82,15 @@ public class GameManager : MonoBehaviour
                 arrowDelaySets[i] = origDelays[i];
                 arrowDelays[i] = arrowDelaySets[i];
             }
+        }
+
+        if (Input.GetKeyDown("a"))
+        {
+            isBuildA = true;
+        }
+        else if (Input.GetKeyDown("b"))
+        {
+            isBuildA = false;
         }
     }
 
