@@ -9,6 +9,9 @@ public class DaedalusLogic : MonoBehaviour
     Vector3 globalStart;
     Vector3 localStart;
 
+    [SerializeField] SpriteRenderer sr;
+    [SerializeField] Sprite[] sprites;
+
     void Start()
     {
         globalStart = transform.position;
@@ -31,14 +34,17 @@ public class DaedalusLogic : MonoBehaviour
         else if (GameManager.gm.gameState == GameManager.GameState.Await)
         {
             Movement();
+            Animation();
         }
         else if (GameManager.gm.gameState == GameManager.GameState.Game)
         {
             Movement();
+            Animation();
         }
         else if (GameManager.gm.gameState == GameManager.GameState.Death)
         {
             Movement();
+            Animation();
         }
         else if (GameManager.gm.gameState == GameManager.GameState.Win)
         {
@@ -51,5 +57,10 @@ public class DaedalusLogic : MonoBehaviour
         Vector2 movResult = mover.Move(new Vector2(1f, movVal));
         transform.position += (Vector3)movResult;
         movVal = (transform.position.y < -3f) ? 1f : 0f;
+    }
+
+    void Animation()
+    {
+        sr.sprite = (mover.speed.y > 0f) ? sprites[1] : sprites[0];
     }
 }

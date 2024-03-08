@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     float[] origDelays;
     public float[] delayDecs;
 
-    public SpawningComponent cloudSpawner;
+    public SpawningComponent[] cloudSpawners;
     GameObject[] clouds = new GameObject[300];
 
     Transform cam;
@@ -45,8 +45,21 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < 300; i++)
         {
-            GameObject newCloud = cloudSpawner.Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-2.5f, 0.5f), 0f));
-            clouds[i] = newCloud;
+            if (i < 100)
+            {
+                GameObject newCloud = cloudSpawners[0].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-1.5f, 1.5f), 0f));
+                clouds[i] = newCloud;
+            }
+            else if (i < 200)
+            {
+                GameObject newCloud = cloudSpawners[1].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-2f, 1f), 0f));
+                clouds[i] = newCloud;
+            }
+            else
+            {
+                GameObject newCloud = cloudSpawners[2].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-2.5f, 0.5f), 0f));
+                clouds[i] = newCloud;
+            }
         }
         clouds[0].transform.position = new Vector3(clouds[0].transform.position.x, 4.5f, 0f);
 
