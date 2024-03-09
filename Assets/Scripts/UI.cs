@@ -12,16 +12,19 @@ public class UI : MonoBehaviour
     Slider candle;
     Image flash;
 
-    float attemptTime;
+    public float attemptTime;
 
     [SerializeField] string[] messages;
 
     GameObject bar;
 
+    public float messageDuration;
+
     void Start()
     {
         candle = GameObject.Find("Candle").GetComponent<Slider>();
         candle.maxValue = GameManager.gm.FindPlayerScript().hp.maxHealth;
+        GameObject.Find("Candle").GetComponent<RectTransform>().anchoredPosition = new Vector2(60f, 250f);
 
         flash = GameObject.Find("Flash").GetComponent<Image>();
         flash.color = new Color(1f, 1f, 1f, 0f);
@@ -30,9 +33,11 @@ public class UI : MonoBehaviour
         StartCoroutine(Menu());
 
         progress = GameObject.Find("Progress");
+        progress.SetActive(true);
 
         progressBar = GameObject.Find("Progress Bar").GetComponent<Slider>();
         bar = GameObject.Find("Progress Bar");
+        bar.SetActive(true);
     }
 
     void Update()
@@ -67,6 +72,8 @@ public class UI : MonoBehaviour
             
         if (Input.GetKey("escape")) Application.Quit();
 
+        // A/B testing structure.
+        /*
         if (GameManager.gm.isBuildA)
         {
             GameObject.Find("Candle").GetComponent<RectTransform>().anchoredPosition = new Vector2(60f, 250f);
@@ -79,6 +86,7 @@ public class UI : MonoBehaviour
             progress.SetActive(false);
             bar.SetActive(true);
         }
+        */
     }
 
     IEnumerator Menu()
@@ -108,12 +116,13 @@ public class UI : MonoBehaviour
     IEnumerator Progress()
     {
         int i = 0;
-        while (true)
+        while (i < messages.Length)
         {
-            yield return new WaitUntil(() => attemptTime > ((GameObject.Find("Main Camera").GetComponent<CameraLogic>().secondsToWin / 5f) * ((float)i + 1f)));
+            yield return new WaitUntil(() => attemptTime > ((GameObject.Find("Main Camera").GetComponent<CameraLogic>().secondsToWin / (float)(messages.Length + 1)) 
+            * ((float)i + 1f)));
             progress.GetComponent<TextMeshProUGUI>().text = messages[i];
-            progress.GetComponent<RectTransform>().DOAnchorPos(new Vector3(2000f, -270f), 6f, false).From();
-            progress.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-2000f, -270f), 4f, false).SetEase(Ease.Linear);
+            progress.GetComponent<RectTransform>().DOAnchorPos(new Vector3(2000f, -270f), 1f, false).From();
+            progress.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-2000f, -270f), messageDuration, false).SetEase(Ease.Linear);
             i++;
         }
     }

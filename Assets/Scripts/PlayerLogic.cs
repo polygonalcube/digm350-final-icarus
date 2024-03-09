@@ -38,12 +38,16 @@ public class PlayerLogic : MonoBehaviour
         {
             transform.position = globalStart;
             hp.health = hp.maxHealth;
+
+            arrow.transform.localScale = new Vector3((Mathf.Sin(Time.time * 6f + 0f) * 0.5f + 0f), arrow.transform.localScale.y, arrow.transform.localScale.z);
         }
         else if (GameManager.gm.gameState == GameManager.GameState.Await)
         {
             transform.localPosition = localStart;
             mover.speed = Vector2.zero;
             firstJump = true;
+
+            arrow.transform.localScale = new Vector3((Mathf.Sin(Time.time * 6f + 0f) * 0.5f + 0f), arrow.transform.localScale.y, arrow.transform.localScale.z);
         }
         else if (GameManager.gm.gameState == GameManager.GameState.Game)
         {

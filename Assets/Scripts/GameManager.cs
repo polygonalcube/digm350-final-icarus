@@ -45,19 +45,19 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < 300; i++)
         {
-            if (i < 100)
+            if (i < 85)
             {
-                GameObject newCloud = cloudSpawners[0].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-1.5f, 1.5f), 0f));
+                GameObject newCloud = cloudSpawners[(int)Mathf.Round(Random.Range(0f, 0.75f))].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-0.5f, 2.5f), 0f));
                 clouds[i] = newCloud;
             }
-            else if (i < 200)
+            else if (i < 170)
             {
-                GameObject newCloud = cloudSpawners[1].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-2f, 1f), 0f));
+                GameObject newCloud = cloudSpawners[(int)Mathf.Round(Random.Range(-0.4f, 2.4f))].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-1.5f, 1.5f), 0f));
                 clouds[i] = newCloud;
             }
             else
             {
-                GameObject newCloud = cloudSpawners[2].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-2.5f, 0.5f), 0f));
+                GameObject newCloud = cloudSpawners[(int)Mathf.Round(Random.Range(1.25f, 2f))].Spawn(new Vector3(((float)i * 4f) - 6f, Random.Range(-2.5f, 0.5f), 0f));
                 clouds[i] = newCloud;
             }
         }
@@ -81,10 +81,10 @@ public class GameManager : MonoBehaviour
             if (gameState == GameState.Game)
             {
                 arrowDelays[i] -= Time.deltaTime;
-                if (arrowDelays[i] <= 0f)
+                if (arrowDelays[i] <= 0f && GameObject.Find("UI").GetComponent<UI>().attemptTime < ((cam.GetComponent<CameraLogic>().secondsToWin / 7f) * 6f))
                 {
-                    GameObject newArrow = arrowSpawners[i].Spawn(new Vector3(Random.Range(1.5f, 9.5f) + cam.position.x, -5.5f, 0f));
-                    newArrow.GetComponent<ArrowLogic>().mover.jumpHgt = Random.Range(1f, 6f);
+                    GameObject newArrow = arrowSpawners[i].Spawn(new Vector3(Random.Range(1.5f, 9.5f) + cam.position.x, -5.5f, 0f), destroyTimer: 7f);
+                    newArrow.GetComponent<ArrowLogic>().mover.jumpHgt = Random.Range(1f, 9f);
                     arrowDelaySets[i] -= delayDecs[i];
                     if (arrowDelaySets[i] < arrowDelayMins[i]) arrowDelaySets[i] = arrowDelayMins[i];
                     arrowDelays[i] = arrowDelaySets[i];
@@ -109,7 +109,21 @@ public class GameManager : MonoBehaviour
 
     public void RandomizeClouds()
     {
-        for (int i = 0; i < 300; i++) clouds[i].transform.position = new Vector3(clouds[i].transform.position.x, Random.Range(-2.5f, 0.5f), 0f);
+        for (int i = 0; i < 300; i++)
+        {
+            if (i < 85)
+            {
+                clouds[i].transform.position = new Vector3(clouds[i].transform.position.x, Random.Range(-0.5f, 2.5f), 0f);
+            }
+            else if (i < 170)
+            {
+                clouds[i].transform.position = new Vector3(clouds[i].transform.position.x, Random.Range(-1.5f, 1.5f), 0f);
+            }
+            else
+            {
+                clouds[i].transform.position = new Vector3(clouds[i].transform.position.x, Random.Range(-2.5f, 0.5f), 0f);
+            }
+        }
         clouds[0].transform.position = new Vector3(clouds[0].transform.position.x, 4.5f, 0f);
     }
 
